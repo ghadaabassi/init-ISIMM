@@ -1,5 +1,5 @@
 package com.example.demo.entities.enums;
 
 public enum Cause {
-    MALADIE, MATERNITE, PATERNITE,CORONA
+    MALADIE, MATERNITE, PATERNITE,CORONA,ANNUEL
 }
