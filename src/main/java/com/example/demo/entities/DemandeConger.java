@@ -5,8 +5,10 @@ import com.example.demo.entities.enums.Etat;
 import com.example.demo.entities.enums.TypeCongé;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,6 +17,8 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+
+
 public class DemandeConger implements Serializable {
 
     @Id
@@ -31,24 +35,38 @@ public class DemandeConger implements Serializable {
 
 
     private Cause type;
-
+    private TypeCongé Typecongé;
     private String Justification;
     private Date DateDebut;
     private Date DateFin;
-    private Etat etatDemande;
+    private Etat etatDemande=Etat.ATTENTE;
 
     public DemandeConger() {
 
     }
 
-    public DemandeConger(Employer employer, Cause type, String justification, Date dateDebut, Date dateFin, Etat etatDemande) {
+    @Builder 
+    public DemandeConger(Employer employer, Cause type, TypeCongé typecongé, String justification, Date dateDebut, Date dateFin) {
         this.employer = employer;
         this.type = type;
+        this.Typecongé = typecongé;
         this.Justification = justification;
         this.DateDebut = dateDebut;
         this.DateFin = dateFin;
-        this.etatDemande = etatDemande;
+       
     }
 
-
+    @Override
+    public String toString() {
+        return "DemandeConger{" +
+                "idDemandeConger=" + idDemandeConger +
+                ", employer=" + employer +
+                ", type=" + type +
+                ", Typecongé=" + Typecongé +
+                ", Justification='" + Justification + '\'' +
+                ", DateDebut=" + DateDebut +
+                ", DateFin=" + DateFin +
+                ", etatDemande=" + etatDemande +
+                '}';
+    }
 }
