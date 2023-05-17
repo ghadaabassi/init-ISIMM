@@ -2,7 +2,6 @@ package com.example.demo.entities;
 
 import com.example.demo.entities.enums.Cause;
 import com.example.demo.entities.enums.Etat;
-import com.example.demo.entities.enums.TypeCongé;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -34,8 +33,13 @@ public class DemandeConger implements Serializable {
     private Employer employer;
 
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_file")
+    @JsonBackReference
+    private DatabaseFile df;
+
+
     private Cause type;
-    private TypeCongé Typecongé;
     private String Justification;
     private Date DateDebut;
     private Date DateFin;
@@ -46,27 +50,21 @@ public class DemandeConger implements Serializable {
     }
 
     @Builder 
-    public DemandeConger(Employer employer, Cause type, TypeCongé typecongé, String justification, Date dateDebut, Date dateFin) {
+    public DemandeConger(Employer employer, Cause type,  String justification, Date dateDebut, Date dateFin , DatabaseFile df) {
         this.employer = employer;
         this.type = type;
-        this.Typecongé = typecongé;
         this.Justification = justification;
         this.DateDebut = dateDebut;
         this.DateFin = dateFin;
+        this.df=df;
        
     }
 
+
     @Override
     public String toString() {
-        return "DemandeConger{" +
-                "idDemandeConger=" + idDemandeConger +
-                ", employer=" + employer +
-                ", type=" + type +
-                ", Typecongé=" + Typecongé +
-                ", Justification='" + Justification + '\'' +
-                ", DateDebut=" + DateDebut +
-                ", DateFin=" + DateFin +
-                ", etatDemande=" + etatDemande +
-                '}';
+        return "DemandeConger [idDemandeConger=" + idDemandeConger + ", employer=" + employer + ", df=" + df + ", type="
+                + type + ", Justification=" + Justification + ", DateDebut=" + DateDebut
+                + ", DateFin=" + DateFin + ", etatDemande=" + etatDemande + "]";
     }
 }
